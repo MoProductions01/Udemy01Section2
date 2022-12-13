@@ -5,14 +5,15 @@ using Photon.Pun;
 
 public class PlayerNameInputManager : MonoBehaviour
 {
-    public void SetPlayerName(string playerName)
+    public void SetPlayerName(string value)
     {
-        if(string.IsNullOrEmpty(playerName))
+        //Debug.Log("SetPlayerName(): " + value);             
+        if(string.IsNullOrEmpty(value))
         {
-            Debug.Log("player name is empty");
+            Debug.LogWarning("player name is empty");
             return;
         }
 
-        PhotonNetwork.NickName = playerName;
+        PhotonNetwork.NickName = value;
     }
 }
