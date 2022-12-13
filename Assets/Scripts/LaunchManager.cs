@@ -12,6 +12,11 @@ public class LaunchManager : MonoBehaviourPunCallbacks
     public GameObject LobbyPanel;
 
     #region Unity Methods
+
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
     void Start()
     {
         EnterGamePanel.SetActive(true);
@@ -53,9 +58,10 @@ public class LaunchManager : MonoBehaviourPunCallbacks
 
     #region Photon Callbacks
 
-    public override void OnJoinedRoom()
+    public override void OnJoinedRoom() // if you're not Master Client, the game scene will be loaded automatically before this is even called monote
     {
-        Debug.Log("OnJoinedRoom() NickName: " + PhotonNetwork.NickName + " joined room: " + PhotonNetwork.CurrentRoom.Name);
+        Debug.Log("OnJoinedRoom() NickName: " + PhotonNetwork.NickName + " joined room: " + PhotonNetwork.CurrentRoom.Name + ", about to call LoadLevel(GameScene)");
+        PhotonNetwork.LoadLevel("GameScene");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
